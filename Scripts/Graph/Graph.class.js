@@ -112,7 +112,7 @@ var Graph = atom.Class({
                     var random = this.random;
                     random = i % 2 == 0 ? -random : random;
                     console.log();
-                    random = key % 2 == 0 ? random * Math.atan(parseInt(key)) * 3 : random * Math.atan(parseInt(key)) * 2
+                    random = key % 2 == 0 ? random * Math.atan(parseInt(key)) * 2 : random * Math.atan(parseInt(key)) * 1
                     ctx.moveTo(s.x, s.y);
                     ctx.bezierCurveTo(s.x, s.y, m.x + random + i, m.y + random + i, f.x, f.y);
                 }
