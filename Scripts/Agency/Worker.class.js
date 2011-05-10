@@ -1,7 +1,9 @@
 var Worker = atom.Class({
     Implements:             [ atom.Class.Options ],
     
-    options:                {},
+    options:                {
+        moodModifier:       0.2,
+    },
     
     initialize:             function (options) {
         this.setOptions(options);
@@ -10,9 +12,18 @@ var Worker = atom.Class({
         this._vert._name    = this._name                = this.options.profile.name || '';
         this._vert._role    = this._role                = this.options.profile.role || '';
         
-        this.loaded         (0);
+        this._loaded        = 0;
+        this._mood          = 1;
+        this._health        = 1;
+        
         this.mood           (Math.random());
         this.health         (Math.random());
+    },
+    
+    shifters:           {
+        mood:           function (v) {return v.limit(-0.3, 0.3)}.bind(this),
+        loaded:         function (v) {return v.limit(-0.3, 0.3)}.bind(this),
+        health:         function (v) {return v.limit(-0.3, 0.3)}.bind(this)
     },
     
     name:                   function (value) {
@@ -35,23 +46,25 @@ var Worker = atom.Class({
     },
     
     loaded:                 function (value) {
-        if (value == null) return this._loaded;
+        var l = this._loaded;
+        if (value == null) return l;
 
-        this._loaded += value;
-        return this._loaded;
+        l += this._shifter(value, 'loaded');
+        return l.limit(0,1);
     },
     mood:                   function (value) {
         var mood = this._mood;
         if (value == null) return mood;
 
-        mood += value;
-        return mood.limit(0, 1);
+        mood += this._shifter(value, 'mood');
+        return mood.limit(-1, 1);
     },
     health:                 function (value) {
-        if (value == null) return this._health;
+        var health = this._health;
+        if (value == null) return health;
 
-        this._health = value;
-        return this._health;
+        health += this._shifter(value, 'health');
+        return health.limit(0, 1);
     },
     
     // Need rewrite!!
@@ -67,8 +80,13 @@ var Worker = atom.Class({
         if(typeof who != 'number') {
             return;
         }
-        this.
+        this.mood(Math.random());
         this.vert().connection(who);
+    },
+    
+    
+    _shifter: function (value, type) {
+        return this.shifters[type](value);
     }
     
     
