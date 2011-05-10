@@ -10,7 +10,8 @@ LibCanvas.extract();
 atom.dom(function () {
     var agency = new Agency({structure: struct});
     
-    // var world  = new World();
+    var world  = new World();
+        world.agency(agency);
     
     agency.graph().animate({
         fn:             'sine',
@@ -26,44 +27,44 @@ atom.dom(function () {
         }
     });
     
-    agency.worker(15).call(12);
-    agency.worker(15).call(12);
-    agency.worker(15).call(12);
-    agency.worker(15).call(12);
-    agency.worker(15).call(12);
-    agency.worker(15).call(12);
-    agency.worker(15).call(12);
-    agency.worker(15).call(12);
-    agency.worker(15).call(12);
-    agency.worker(15).call(12);
-    agency.worker(15).call(12);
-    agency.worker(15).call(12);
-    agency.worker(15).call(12);
-    agency.worker(15).call(12);
-    agency.worker(15).call(12);
-    agency.worker(15).call(12);
-    
-    
-    
-    agency.worker(6).call(3);
-    agency.worker(6).call(3);
-    agency.worker(6).call(3);
-    agency.worker(6).call(3);
-    agency.worker(6).call(3);
-    agency.worker(6).call(3);
-    agency.worker(6).call(3);
-    agency.worker(6).call(3);
-    agency.worker(6).call(3);
-    agency.worker(6).call(3);
-    
-    
-    
-    agency.worker(0).call(1);
-    agency.worker(0).call(1);
-    
-    agency.worker(14).call(17);
-    agency.worker(14).call(17);
-    agency.worker(14).call(17);
+    // agency.worker(15).call(12);
+    // agency.worker(15).call(12);
+    // agency.worker(15).call(12);
+    // agency.worker(15).call(12);
+    // agency.worker(15).call(12);
+    // agency.worker(15).call(12);
+    // agency.worker(15).call(12);
+    // agency.worker(15).call(12);
+    // agency.worker(15).call(12);
+    // agency.worker(15).call(12);
+    // agency.worker(15).call(12);
+    // agency.worker(15).call(12);
+    // agency.worker(15).call(12);
+    // agency.worker(15).call(12);
+    // agency.worker(15).call(12);
+    // agency.worker(15).call(12);
+    // 
+    // 
+    // 
+    // agency.worker(6).call(3);
+    // agency.worker(6).call(3);
+    // agency.worker(6).call(3);
+    // agency.worker(6).call(3);
+    // agency.worker(6).call(3);
+    // agency.worker(6).call(3);
+    // agency.worker(6).call(3);
+    // agency.worker(6).call(3);
+    // agency.worker(6).call(3);
+    // agency.worker(6).call(3);
+    // 
+    // 
+    // 
+    // agency.worker(0).call(1);
+    // agency.worker(0).call(1);
+    // 
+    // agency.worker(14).call(17);
+    // agency.worker(14).call(17);
+    // agency.worker(14).call(17);
     
     var libcanvas = new LibCanvas('canvas', { fps: 30 })
         .listenMouse()
