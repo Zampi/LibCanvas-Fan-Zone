@@ -11,7 +11,7 @@ atom.dom(function () {
     var agency = new Agency({structure: struct});
     
     var world  = new World();
-        world.agency(agency);
+        world._agency = agency;
     
     agency.graph().animate({
         fn:             'sine',
@@ -42,6 +42,7 @@ atom.dom(function () {
         .createLayer('verts')
         .addElement(agency.graph())
         .addFunc( function () { this.update(); })
+        .addFunc( function () { world.simulate(); })
         .addFunc( function () {
             if (!mousePressed) return;
             var ctx     = this.ctx;

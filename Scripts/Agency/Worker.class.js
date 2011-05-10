@@ -13,7 +13,7 @@ var Worker = atom.Class({
         this._vert._role    = this._role                = this.options.profile.role || '';
         
         this._loaded        = 0;
-        this._mood          = 1;
+        this._mood          = 0;
         this._health        = 1;
         
         this.mood           (Math.random());
@@ -21,7 +21,7 @@ var Worker = atom.Class({
     },
     
     shifters:           {
-        mood:           function (v) {return v.limit(-0.3, 0.3)}.bind(this),
+        mood:           function (v) {return v.limit(-1.0, 1.0)}.bind(this),
         loaded:         function (v) {return v.limit(-0.3, 0.3)}.bind(this),
         health:         function (v) {return v.limit(-0.3, 0.3)}.bind(this)
     },
@@ -50,21 +50,20 @@ var Worker = atom.Class({
         if (value == null) return l;
 
         l += this._shifter(value, 'loaded');
-        return l.limit(0,1);
+        return l.limit(0.0,1.0);
     },
     mood:                   function (value) {
-        var mood = this._mood;
-        if (value == null) return mood;
+        if (value == null) return this._mood;
 
-        mood += this._shifter(value, 'mood');
-        return mood.limit(-1, 1);
+        this._mood += this._shifter(value, 'mood');
+        return this._mood.limit(-1.0, 1.0);
     },
     health:                 function (value) {
         var health = this._health;
         if (value == null) return health;
 
         health += this._shifter(value, 'health');
-        return health.limit(0, 1);
+        return health.limit(0.0, 1.0);
     },
     
     // Need rewrite!!
@@ -80,7 +79,8 @@ var Worker = atom.Class({
         if(typeof who != 'number') {
             return;
         }
-        this.mood(Math.random());
+        
+        this.mood(Number.random(-100, 20) / 100);
         this.vert().connection(who);
     },
     

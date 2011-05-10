@@ -49,9 +49,10 @@ var Vertex = atom.Class({
         var c           = this.options.colors;
         
         var result      = new Color(c[0]).diff(c[1]);
-        result          = result.fullMap( function (x) { return x * m });
+        // result          = result.fullMap( function (x) { return x * m });
+        result          = result.map( function (x) { return x * m });
         
-        result          = new Color(c[0]).shift(result).toString("hex");
+        result          = new Color(c[0]).shift(result).toString();
         return result;
     },
     connection:             function (index) {

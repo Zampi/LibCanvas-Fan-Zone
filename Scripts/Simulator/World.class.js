@@ -45,8 +45,16 @@ var World = atom.Class({
         return s.limit(0,1);
     },
     
-    update:     function () {
-        // pass
+    simulate:     function () {
+        // console.log(this.agency());
+        if (Number.random(0, 20) == 5) {
+            var l = this.agency().workers().length - 1;
+            var w = Number.random(0, l);
+            var c = Number.random(0, l);
+            c = c == w ? с - 1 : c;
+            
+            this.agency().worker(w).call(c);
+        }
     }
     
     

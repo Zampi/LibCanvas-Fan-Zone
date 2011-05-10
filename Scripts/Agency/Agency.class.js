@@ -26,6 +26,10 @@ var Agency = atom.Class({
         
     },
     
+    workers:               function () {
+        return this._workers;
+    },
+    
     worker:                function (index) {
         if (index == null) index = 0;
         return this._workers[index];
