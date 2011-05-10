@@ -27,8 +27,11 @@ atom.dom(function () {
         }
     });
     
-    var libcanvas = new LibCanvas('canvas', { fps: 30 })
-        .listenMouse()
+    var ctxAngle = 0;
+    
+    var libcanvas = new LibCanvas('canvas', { fps: 30 });    
+    
+    libcanvas.listenMouse()
         .size({
             width : wwidth,
             height: wheight
@@ -41,15 +44,35 @@ atom.dom(function () {
         .addFunc( function () { this.update(); })
         .addFunc( function () {
             if (!mousePressed) return;
-            this.ctx.save();
+            var ctx     = this.ctx;
             mouseX      = this.mouse.point.clone().x - wwidth  / 2;
             mouseY      = this.mouse.point.clone().y - wheight / 2;
-            console.log(this.mouse.point.clone().x , this.mouse.point.clone().y);
-            angle       = ( Math.atan2(mouseY, mouseX) / Math.PI * 180 + 90 );//.degree();
-            this.ctx.rotate(angle.degree(), agency.graph().transform().point);
-            this.ctx.restore();
+            angle       = ( Math.atan2(mouseY, mouseX) / Math.PI * 180 );//.degree();
+            // 
+            anim.animate({
+        		props: { agle: angle },
+                // onProccess: libcanvas.update,
+        		time: 700
+        	});
+        	
+            // mousePressed = false;
+            // this.ctx.restore();
         });
         
+    var anim = new LibCanvas.Behaviors.Animatable({
+		get agle () {
+			return ctxAngle; //shaper.shape.to.x;
+		},
+		set agle (value) {
+            libcanvas.layer('verts').ctx.restore();
+            libcanvas.layer('verts').ctx.save();
+		    ctxAngle = value;
+		    console.log(ctxAngle);
+			libcanvas.layer('verts').ctx.rotate(ctxAngle.degree(), agency.graph().transform().point);
+			return ctxAngle.degree();
+		}
+	});
+	
     libcanvas.mouse.addEvent({
         mousedown:          function (event) {
             mousePressed = true;

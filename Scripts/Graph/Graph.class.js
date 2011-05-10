@@ -17,6 +17,7 @@ var Graph = atom.Class({
         this.setOptions(options);
         this._center         = new Point(this.options.center.x, this.options.center.y);
         this._radius         = this.options.radius;
+        this.angle           = 0;
     },
     
     addVerts:               function (amount) {
@@ -77,7 +78,7 @@ var Graph = atom.Class({
     },
         
     _drawPoints:             function (ctx) {
-        var angle = (360 / this._verts.length ).degree();
+        var angle = (360 / this._verts.length + this.angle ).degree();
         this._verts.forEach(
             function (vert, index) {
                 vert.angle              = angle * index;
